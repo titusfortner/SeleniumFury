@@ -4,9 +4,12 @@ require 'bundler'
 require 'selenium_fury'
 
 require "test_page/test_page_custom_generator_configuration"
+require "test_page/test_module"
 
 TEST_PAGE_URL="file://"+File.dirname(__FILE__) + "/test_page/test_page.html"
+
 include SeleniumFury::SeleniumWebDriver::CreateSeleniumWebDriver
+include TestModule
 
 RSpec.configure do |config|
   config.before(:each) do

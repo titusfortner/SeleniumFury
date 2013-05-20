@@ -9,10 +9,17 @@ module SeleniumFury
         def initialize(locator, driver=nil, opt={})
           @location = locator
           @driver = driver
-          @verify = !(opt[:verify] == false || opt[:method].to_s.chr == '_')
+
+          # You can access tags for any additional functionality desired in your implementation
+          @tags = opt[:tags]
+
+          # You can dynamically set an element to not verify by
+          # passing in a tags: [:foo] in opt, and implement a foo? method to return false
+          matches_tag = @tags.any? { |tag| send("#{tag.to_s}?")}  unless @tags.nil?
+          @verify = !(matches_tag || opt[:verify] == false || opt[:method].to_s.chr == '_')
         end
 
-        attr_accessor :location, :driver
+        attr_accessor :location, :driver, :tags
 
         def verify?
           @verify

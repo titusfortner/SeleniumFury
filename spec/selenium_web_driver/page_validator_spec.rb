@@ -27,13 +27,40 @@ describe SeleniumFury::SeleniumWebDriver::PageValidator do
   end
 
   context "with skipped elements" do
+    before(:each) do
+      ENV['FOO'] = nil
+      ENV['BAR'] = nil
+    end
+
     class SkippedElement < PageObject
       generic_element :_skip_underscored_element, {id: 'not_here'}
       generic_element :skip_hard_coded_element, {id: 'not_here'}, {verify: false}
+      generic_element :skip_dynamically, {css: 'element_not_here'}, {tags: [:foo, :bar]}
     end
 
-    it "should not raise an error when new element types are designated to be skipped" do
+    it "should not raise an error when set to skip :foo, though not :bar" do
+      ENV['FOO'] = 'true'
+      ENV['BAR'] = 'false'
       expect { validate(SkippedElement) }.to_not raise_error
+    end
+
+    it "should not raise an error when set to skip :bar, though not :foo" do
+      ENV['FOO'] = 'false'
+      ENV['BAR'] = 'true'
+      expect { validate(SkippedElement) }.to_not raise_error
+    end
+
+    it "should not raise an error when set to skip either :foo or :bar" do
+      ENV['FOO'] = 'true'
+      ENV['BAR'] = 'true'
+      expect { validate(SkippedElement) }.to_not raise_error
+    end
+
+    it "should raise an error when set to skip  neither :foo, nor :bar" do
+      ENV['FOO'] = 'false'
+      ENV['BAR'] = nil
+      expect { validate(SkippedElement) }.
+          to raise_exception(RuntimeError, "Found Missing Elements: [:skip_dynamically]")
     end
   end
 end
