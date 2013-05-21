@@ -30,8 +30,9 @@ module SeleniumFury
               page_object.method(web_driver_element_name).call
             else
               element_obj = page_object.send(web_driver_element_name)
-              #Implement something like this to pass in tags with validate
-              #element_obj.verify = true if !element_obj.verify && !tags.empty && element_obj.tags.any? {|tag| tags.include? tag}
+              verify_any = tags[:verify_any].nil? || tags[:verify_any].any? {|tag| element_obj.tags.include? tag}
+              verify_all = tags[:verify_all].nil? || tags[:verify_all].all? {|tag| element_obj.tags.include? tag}
+              element_obj.verify = verify_any && verify_all unless tags.empty?
               raise if !element_obj.present? && element_obj.verify?
               skipped_elements.push(web_driver_element_name) unless element_obj.verify?
             end

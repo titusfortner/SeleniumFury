@@ -62,5 +62,15 @@ describe SeleniumFury::SeleniumWebDriver::PageValidator do
       expect { validate(SkippedElement) }.
           to raise_exception(RuntimeError, "Found Missing Elements: [:skip_dynamically]")
     end
+
+    it "should validate based on parameters input to method" do
+      web_driver_validate(SkippedElement)
+      web_driver_validate(SkippedElement, verify_all: [:foo, :bar])
+      web_driver_validate(SkippedElement, verify_all: [:foo])
+      web_driver_validate(SkippedElement, verify_all: [:missing])
+      web_driver_validate(SkippedElement, verify_any: [:foo, :bar])
+      web_driver_validate(SkippedElement, verify_any: [:foo])
+      web_driver_validate(SkippedElement, verify_any: [:missing])
+    end
   end
 end
