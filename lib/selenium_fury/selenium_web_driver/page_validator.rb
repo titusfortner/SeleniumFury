@@ -16,7 +16,7 @@
 module SeleniumFury
   module SeleniumWebDriver
     module PageValidator
-      def web_driver_validate(page_class)
+      def web_driver_validate(page_class, tags=[])
         raise("Cannot find driver") if driver.nil?
         missing_elements=[]
         skipped_elements=[]
@@ -30,6 +30,8 @@ module SeleniumFury
               page_object.method(web_driver_element_name).call
             else
               element_obj = page_object.send(web_driver_element_name)
+              #Implement something like this to pass in tags with validate
+              #element_obj.verify = true if !element_obj.verify && !tags.empty && element_obj.tags.any? {|tag| tags.include? tag}
               raise if !element_obj.present? && element_obj.verify?
               skipped_elements.push(web_driver_element_name) unless element_obj.verify?
             end
