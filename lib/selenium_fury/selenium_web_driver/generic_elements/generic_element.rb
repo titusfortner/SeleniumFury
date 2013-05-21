@@ -16,7 +16,7 @@ module SeleniumFury
           # You can dynamically set an element to not verify by
           # passing in a tags: [:foo] in opt, and implement a foo? method to return false
           matches_tag = @tags.any? { |tag| send("#{tag.to_s}?")}  unless @tags.nil?
-          @verify = !(matches_tag || opt[:verify] == false)
+          @verify = !(matches_tag || opt[:verify] == false )   # true if opt[:verify].nil?
         end
 
         attr_accessor :location, :driver, :tags
