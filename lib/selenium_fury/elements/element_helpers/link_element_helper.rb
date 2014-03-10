@@ -21,8 +21,9 @@ module SeleniumFury
       #
       # @return [String] the location of where the link will take us if clicked.
       def link
-        el.attribute('href')
+        wd_element.attribute('href')
       end
+
     end # LinkElementHelper
   end # Elements
 end # SeleniumFury

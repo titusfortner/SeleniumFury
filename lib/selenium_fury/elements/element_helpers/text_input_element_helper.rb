@@ -17,16 +17,18 @@ module SeleniumFury
   module Elements
     # Defines what we can do to a text input element
     module TextInputElementHelper
+
       def send_keys(text)
-        raise "Locator at #{location} can not be interacted with" unless visible?
-        el.clear
-        el.send_keys(text)
+        raise "Locator at #{locator} can not be interacted with" unless visible?
+        wd_element.clear
+        wd_element.send_keys(text)
       end
 
       def send_keys!(text)
-        raise "Locator at #{location} can not be interacted with" unless visible?
-        el.send_keys(text)
+        raise "Locator at #{locator} can not be interacted with" unless visible?
+        wd_element.send_keys(text)
       end
+
     end # TextInputElementHelper
   end # Elements
 end # SeleniumFury

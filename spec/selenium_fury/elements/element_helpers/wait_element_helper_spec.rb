@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SeleniumFury::Elements::WaitElementHelper do
 
   let(:test_page) { TestPage.new(driver) }
-  before(:all) { start_web_driver TEST_PAGE_URL }
+  before(:all) { start_web_driver(TEST_PAGE_URL) }
   after(:all) { stop_web_driver }
 
   class TestPage < SeleniumFury::PageObject
@@ -103,7 +103,7 @@ describe SeleniumFury::Elements::WaitElementHelper do
     it 'should error on missing element if specify !' do
       start_time = Time.now
       expect { test_page.not_a_element.wait_visible! }.
-          to raise_exception(RuntimeError, "Locator at #{test_page.not_a_element.location.to_s} is not present")
+          to raise_exception(RuntimeError, "Locator at #{test_page.not_a_element.locator.to_s} is not present")
       (Time.now-start_time).should < 1
     end
 

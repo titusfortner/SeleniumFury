@@ -18,11 +18,11 @@ module SeleniumFury
     # Defines what we can do to an image element
     module ImageElementHelper
       def text
-        el.attribute('alt')
+        wd_element.attribute('alt')
       end
 
       def source
-        el.attribute('src')
+        wd_element.attribute('src')
       end
     end # ImageElementHelper
   end # Elements

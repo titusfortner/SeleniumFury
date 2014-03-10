@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SeleniumFury::Elements::SelectableElementHelper do
   let(:wait_element) { WaitElement.new(driver) }
   let(:test_page) { TestPage.new(driver) }
-  before(:all) { start_web_driver TEST_PAGE_URL }
+  before(:all) { start_web_driver(TEST_PAGE_URL) }
   after(:all) { stop_web_driver }
 
   class WaitElement < SeleniumFury::PageObject
@@ -14,7 +14,7 @@ describe SeleniumFury::Elements::SelectableElementHelper do
   it 'should properly submit a form' do
     text = 'Hey buddy'
     test_page.input_message_element.send_keys(text)
-    test_page.input_msg_button_element.select
+    test_page.input_msg_button_element.click
     test_page.message_element.text.should == text
   end
 
@@ -29,7 +29,7 @@ describe SeleniumFury::Elements::SelectableElementHelper do
 
   it 'should throw not visible error if element to select is not visible and ! is specified' do
     expect { wait_element.not_visible.select! }.
-        to raise_exception(RuntimeError, "Locator at #{wait_element.not_visible.location.to_s} is not visible")
+        to raise_exception(RuntimeError, "Locator at #{wait_element.not_visible.locator.to_s} is not visible")
   end
 
   it 'should throw timeout error if element to select is not visible and ! is not specified' do

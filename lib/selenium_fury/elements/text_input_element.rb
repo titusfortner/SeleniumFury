@@ -20,6 +20,7 @@ module SeleniumFury
     # This class represents a drop down element on a web page.
     class TextInputElement < GenericElement
       include TextInputElementHelper
+
     end # TextInputElement
   end # Elements
 end # SeleniumFury

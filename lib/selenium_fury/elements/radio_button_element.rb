@@ -20,6 +20,7 @@ module SeleniumFury
     # This class represents a radio button element on a web page.
     class RadioButtonElement < GenericElement
       include SelectableElementHelper
+
     end # RadioButtonElement
   end # Elements
 end # SeleniumFury

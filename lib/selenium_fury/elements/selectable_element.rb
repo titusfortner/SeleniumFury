@@ -20,6 +20,7 @@ module SeleniumFury
     # This class represents a selectable element on a web page.
     class SelectableElement < GenericElement
       include SelectableElementHelper
+
     end # SelectableElement
   end # Elements
 end # SeleniumFury

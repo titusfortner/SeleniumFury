@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SeleniumFury::Elements::ImageElement do
   let(:test_page) { TestPage.new(driver) }
-  before(:all) { start_web_driver TEST_PAGE_URL }
+  before(:all) { start_web_driver(TEST_PAGE_URL) }
   after(:all) { stop_web_driver }
 
   it 'should return the alternate text for an image' do
@@ -12,4 +12,5 @@ describe SeleniumFury::Elements::ImageElement do
   it 'should return the source of an image' do
     test_page.input_image_element.attribute('src').include?('test_page/spacer.gif')
   end
+
 end

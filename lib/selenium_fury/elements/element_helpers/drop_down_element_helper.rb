@@ -17,16 +17,18 @@ module SeleniumFury
   module Elements
     # Defines what we can do to a drop down element
     module DropDownElementHelper
+
       def selected_option
-        Selenium::WebDriver::Support::Select.new(el).first_selected_option.text
+        Selenium::WebDriver::Support::Select.new(wd_element).first_selected_option.text
       end
 
       # how can be :text, :index, :value
       def select_option(how=nil, what=nil)
-        raise "Locator at #{location} can not be interacted with" unless visible?
-        el.click if how.nil?
-        Selenium::WebDriver::Support::Select.new(el).select_by(how, what)
+        raise "Locator at #{locator} can not be interacted with" unless visible?
+        wd_element.click if how.nil?
+        Selenium::WebDriver::Support::Select.new(wd_element).select_by(how, what)
       end
+
     end # DropDownElementHelper
   end # Elements
 end # SeleniumFury

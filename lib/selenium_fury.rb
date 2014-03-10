@@ -14,7 +14,6 @@
 # * limitations under the License.
 # */
 require 'selenium-webdriver'
-require 'nokogiri'
 require 'active_support/inflector/methods'
 
 require 'selenium_fury/version'

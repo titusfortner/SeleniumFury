@@ -21,6 +21,7 @@ module SeleniumFury
     class LinkElement < GenericElement
       include LinkElementHelper
       include SelectableElementHelper
+
     end # LinkElement
   end # Elements
 end # SeleniumFury

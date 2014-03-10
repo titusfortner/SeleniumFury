@@ -19,8 +19,9 @@ module SeleniumFury
   module Elements
     # This class represents a drop down element on a web page.
     class DropDownElement < GenericElement
+
       include DropDownElementHelper
-      include SelectableElementHelper
+
     end # DropDownElement
   end # Elements
 end # SeleniumFury

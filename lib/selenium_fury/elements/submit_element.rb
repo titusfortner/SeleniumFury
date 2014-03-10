@@ -20,6 +20,7 @@ module SeleniumFury
     # This class represents a submit element on a web page.
     class SubmitElement < GenericElement
       include SelectableElementHelper
+
     end # SubmitElement
   end # Elements
 end # SeleniumFury

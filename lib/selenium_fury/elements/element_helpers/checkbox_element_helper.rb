@@ -17,9 +17,11 @@ module SeleniumFury
   module Elements
     # Defines what we can do to a checkbox element
     module CheckboxElementHelper
-      def checked(be_selected=true)
+
+      def check_box(be_selected=true)
         select unless be_selected == selected?
       end
+
     end #CheckboxElementHelper
   end # Elements
 end # SeleniumFury

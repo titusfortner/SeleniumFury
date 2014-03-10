@@ -15,8 +15,8 @@
 ####Enhancements
 
 *  WebDriver support
-*  WebDriver PageObject class. Specify your webdriver elements with the element() method. 
-*  WebDriver generate() and validate() 
+*  WebDriver PageObject class. Specify your webdriver elements with the element() method.
+*  WebDriver generate() and validate()
 
 [full changelog](https://github.com/scottcsims/SeleniumFury/compare/v0.5.2...v0.5.7)
 

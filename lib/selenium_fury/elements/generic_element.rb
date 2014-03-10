@@ -20,31 +20,31 @@ module SeleniumFury
       include WaitElementHelper
 
       def initialize(opt={}, driver=nil)
-        locator = get_locator(opt)
-        @original_location = locator.freeze
-        @location = Marshal.load(Marshal.dump(@original_location))
+        @original_locator = get_locator(opt).freeze
+        @locator = Marshal.load(Marshal.dump(@original_locator))
         @driver = driver
         @tags = opt[:tags]
-        # Should validate if opt[:validate] is nil, should not validate if doing dynamic matchin
-        @validate = opt[:validate] != false && !locator.values.first.match(/__/)
+        # Should require if opt[:require] is nil, should not require if doing dynamic matching
+        @require = opt[:require] != false && !@original_locator.values.first.match(/__/)
         # This is different from implicit_wait. This explicitly waits for this element, not for entire driver session.
         @wait = opt[:wait] || 10
       end
 
-      attr_accessor :location, :driver, :tags, :wait, :implicit_wait
-      attr_writer :validate
+      attr_accessor :locator, :driver, :tags, :wait, :implicit_wait
+      attr_writer :require
 
-      def validate?
-        @validate
+      def required?
+        @require
       end
 
       def update_locator(variables)
-        locator = Marshal.load(Marshal.dump(@original_location))
+        locator = Marshal.load(Marshal.dump(@original_locator))
         variables.each { |key, value| locator.first[1].gsub! ('__' + key.to_s.upcase + '__'), value.to_s }
-        @location = locator
+        @locator = locator
         self
       end
 
+      private
       def get_locator(opt)
         if opt[:css]
           {css: opt[:css]}
@@ -57,15 +57,15 @@ module SeleniumFury
         elsif opt[:tag_name]
           {tag_name: opt[:tag_name]}
         elsif opt[:link_name] || opt[:link]
-          {link: opt[:link_name] || opt[:class]}
-        elsif opt[:partial_link_name]
-          {partial_link_name: opt[:partial_link_name]}
+          {link: opt[:link_name] || opt[:link]}
+        elsif opt[:partial_link_text]
+          {partial_link_text: opt[:partial_link_text]}
         elsif opt[:xpath]
           {xpath: opt[:xpath]}
         elsif opt[:data]
-          {css: "data-#{opt[:data]}"}
+          {css: "[data-#{opt[:data]}]"}
         else
-          {css: "data-#{opt[:element_type]}"}
+          {css: "[data-#{opt[:element_type]}]"}
         end
 
       end

@@ -16,18 +16,19 @@
 module SeleniumFury
   module Elements
     # Defines what we can do to a selectable element
-    module SelectableElementHelper
+    module  SelectableElementHelper
+
       def selected?
-        el.selected?
+        wd_element.selected?
       end
 
-      # Raises error if not selectable
+      # Immediately Raises error if not selectable
       def select!
-        raise "Locator at #{location} is not visible" unless visible?
+        raise "Locator at #{locator} is not visible" unless visible?
         begin
-          el.click
+          wd_element.click
         rescue
-          raise "Locator at #{location} can not be interacted with" unless visible?
+          raise "Locator at #{locator} can not be interacted with" unless visible?
         end
         check_errors
       end
@@ -35,20 +36,17 @@ module SeleniumFury
       def select
         wait_visible
         begin
-          el.click
+          wd_element.click
         rescue Exception => e
-          retry_select(e)
+          raise "Locator at #{locator} can not be interacted with - Failed with #{e.message}"
         end
         check_errors
-      end
-
-      def retry_select(exception)
-        raise "Locator at #{location} can not be interacted with - Failed with #{exception}"
       end
 
       # Overwrite in your project if desired
       def check_errors;
       end
+
     end # SelectableElementHelper
   end # Elements
 end # SeleniumFury

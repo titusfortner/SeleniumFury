@@ -24,11 +24,11 @@ module SeleniumFury
       end
 
       def wait_present(timeout=@wait)
-        wait_for(timeout: timeout, message: "Element at #{location} is not present") { present? }
+        wait_for(timeout: timeout, message: "Element at #{locator} is not present") { present? }
       end
 
       def wait_not_present(timeout=@wait)
-        wait_for(timeout: timeout, message: "Element at #{location} is still present") { !present? }
+        wait_for(timeout: timeout, message: "Element at #{locator} is still present") { !present? }
       end
 
       def wait_visible(timeout=@wait)
@@ -38,16 +38,16 @@ module SeleniumFury
 
       # Raises error if not present
       def wait_visible!(timeout=@wait)
-        wait_for(timeout: timeout, message: "Element at #{location} is not visible") { visible? }
+        wait_for(timeout: timeout, message: "Element at #{locator} is not visible") { visible? }
       end
 
       def wait_not_visible(timeout=@wait)
-        wait_for(timeout: timeout, message: "Element at #{location} is still visible") { !present? || !visible? }
+        wait_for(timeout: timeout, message: "Element at #{locator} is still visible") { !present? || !visible? }
       end
 
       # Raises error if not present
       def wait_not_visible!(timeout=@wait)
-        wait_for(timeout: timeout, message: "Element at #{location} is still visible") { !visible? }
+        wait_for(timeout: timeout, message: "Element at #{locator} is still visible") { !visible? }
       end
     end # WaitElementHelper
   end # Elements
