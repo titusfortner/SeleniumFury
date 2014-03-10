@@ -1,0 +1,34 @@
+require 'spec_helper'
+
+describe SeleniumFury::PageObject do
+  let(:test_page) { TestPage.new(driver) }
+  before(:all) { start_web_driver TEST_PAGE_URL }
+  after(:all) { stop_web_driver }
+  after(:each) do
+    Object.instance_eval { remove_const :TestPage } if Object.const_defined? :TestPage
+    load 'test_page/test_page.rb'
+  end
+
+  it "has Selenium::WebDriver::Elements defined with the element method" do
+    test_page.should_not be_nil
+    test_page.textarea.should be_a(Selenium::WebDriver::Element)
+  end
+
+  it "should call methods on Selenium::WebDriver::Elements defined in the TestPage class" do
+    test_page.input_message.send_keys 'this is awesome'
+    test_page.input_msg_button.click
+    driver.find_element(id: 'message').text.should eql 'this is awesome'
+  end
+
+  it "PageObject provides a method to return all Selenium::WebDriver::Element defined in the class" do
+    test_page.class.elements.should_not be_nil
+    test_page.class.elements.should have(40).elements
+    test_page.method(test_page.class.elements[0]).call.class.should eql Selenium::WebDriver::Element
+  end
+
+  it "should raise an exception when the element can't be found" do
+    TestPage.element :not_a_element, {id: 'not a element'}
+    expect { test_page.not_a_element }.to raise_exception RuntimeError, 'Could not find element not_a_element'
+  end
+
+end

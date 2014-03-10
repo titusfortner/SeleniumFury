@@ -18,6 +18,7 @@ require 'nokogiri'
 require 'active_support/inflector/methods'
 
 require 'selenium_fury/version'
+require 'selenium_fury/page_object'
 require 'selenium_fury/monkey_patches/selenium/webdriver/common/timeouts'
 
 gem_root = File.dirname(File.absolute_path(__FILE__)) + '/selenium_fury/'
@@ -25,13 +26,10 @@ gem_root = File.dirname(File.absolute_path(__FILE__)) + '/selenium_fury/'
 Dir.glob(gem_root + 'common/*.rb', &method(:require))
 
 # PageObject ElementType ElementHelpers
-Dir.glob(gem_root + 'page_object/element_types/element_helpers/*.rb', &method(:require))
+Dir.glob(gem_root + 'elements/element_helpers/*.rb', &method(:require))
 
 # PageObject ElementTypes
-Dir.glob(gem_root + 'page_object/element_types/*.rb', &method(:require))
+Dir.glob(gem_root + 'elements/*.rb', &method(:require))
 
-# PageObject
-Dir.glob(gem_root + 'page_object/*.rb', &method(:require))
-
-include SeleniumFury::PageObject
+include SeleniumFury::Elements
 include SeleniumFury::Utilities

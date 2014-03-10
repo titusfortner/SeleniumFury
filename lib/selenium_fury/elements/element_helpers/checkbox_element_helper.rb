@@ -13,11 +13,14 @@
 # * See the License for the specific language governing permissions and
 # * limitations under the License.
 # */
+module SeleniumFury
+  module Elements
+    # Defines what we can do to a checkbox element
+    module CheckboxElementHelper
+      def checked(be_selected=true)
+        select unless be_selected == selected?
+      end
+    end #CheckboxElementHelper
+  end # Elements
+end # SeleniumFury
 
-require 'selenium_fury'
-require 'active_support/inflector'
-
-require 'test_page/test_page_custom_generator_configuration'
-require 'test_page/test_page'
-
-TEST_PAGE_URL="file://#{File.dirname(__FILE__)}/test_page/test_page.html"

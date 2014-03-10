@@ -13,11 +13,21 @@
 # * See the License for the specific language governing permissions and
 # * limitations under the License.
 # */
+module SeleniumFury
+  module Elements
+    # Defines what we can do to a drop down element
+    module DropDownElementHelper
+      def selected_option
+        Selenium::WebDriver::Support::Select.new(el).first_selected_option.text
+      end
 
-require 'selenium_fury'
-require 'active_support/inflector'
+      # how can be :text, :index, :value
+      def select_option(how=nil, what=nil)
+        raise "Locator at #{location} can not be interacted with" unless visible?
+        el.click if how.nil?
+        Selenium::WebDriver::Support::Select.new(el).select_by(how, what)
+      end
+    end # DropDownElementHelper
+  end # Elements
+end # SeleniumFury
 
-require 'test_page/test_page_custom_generator_configuration'
-require 'test_page/test_page'
-
-TEST_PAGE_URL="file://#{File.dirname(__FILE__)}/test_page/test_page.html"

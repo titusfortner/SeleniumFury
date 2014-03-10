@@ -13,8 +13,8 @@ describe 'PageObject Integration Tests' do
       page2.driver.should eql bar
       page1.driver.current_url.should_not eql page2.driver.current_url
 
-      page1.driver.current_url.should eql 'http://www.google.com/'
-      page2.driver.current_url.should eql 'http://www.yahoo.com/'
+      page1.driver.current_url.should eql 'https://www.google.com/'
+      page2.driver.current_url.should eql 'https://www.yahoo.com/'
 
     ensure
       stop_all_web_drivers

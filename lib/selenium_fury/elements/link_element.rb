@@ -13,11 +13,14 @@
 # * See the License for the specific language governing permissions and
 # * limitations under the License.
 # */
+require 'selenium_fury/elements/generic_element'
 
-require 'selenium_fury'
-require 'active_support/inflector'
-
-require 'test_page/test_page_custom_generator_configuration'
-require 'test_page/test_page'
-
-TEST_PAGE_URL="file://#{File.dirname(__FILE__)}/test_page/test_page.html"
+module SeleniumFury
+  module Elements
+    # This class represents a link element on a web page.
+    class LinkElement < GenericElement
+      include LinkElementHelper
+      include SelectableElementHelper
+    end # LinkElement
+  end # Elements
+end # SeleniumFury

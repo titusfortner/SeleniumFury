@@ -13,11 +13,18 @@
 # * See the License for the specific language governing permissions and
 # * limitations under the License.
 # */
+module SeleniumFury
+  module Elements
+    # Defines what we can do to an image element
+    module ImageElementHelper
+      def text
+        el.attribute('alt')
+      end
 
-require 'selenium_fury'
-require 'active_support/inflector'
+      def source
+        el.attribute('src')
+      end
+    end # ImageElementHelper
+  end # Elements
+end # SeleniumFury
 
-require 'test_page/test_page_custom_generator_configuration'
-require 'test_page/test_page'
-
-TEST_PAGE_URL="file://#{File.dirname(__FILE__)}/test_page/test_page.html"

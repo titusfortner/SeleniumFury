@@ -1,4 +1,5 @@
-class TestPage < PageObject
+class TestPage < SeleniumFury::PageObject
+
   element :form, {:id => "form"}
   element :input_button, {:id => "input_button"}
   element :input_checkbox, {:id => "input_checkbox"}
@@ -15,7 +16,6 @@ class TestPage < PageObject
   element :select, {:id => "select"}
   element :textarea, {:id => "textarea"}
 
-  element_list :listings, { css: 'li.listing' }
 
 
   generic_element       :form_element, {id: 'form'}
